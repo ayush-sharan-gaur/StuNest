@@ -8,8 +8,12 @@ Achievements:
 5) Enhanced the Listing Detail screen with detailed dummy data (images, description, amenities).
 6) Updated the Profile screen with dummy user information and a logout button.
 7) Integrated basic authentication state management using React Context.
-8) Added a bottom tab navigator for the main app (Home, Messages, Profile) nested inside a stack navigator.
+8) Added a bottom tab navigator for the main app (Home, Map, Messages, Profile) nested inside a stack navigator.
 9) Enabled navigation to the Listing Detail screen from the Home Screen.
+10) Integrated a simulated API call to fetch listings, with a loading state.
+11) Enhanced the Messaging screen with a dummy chat conversation, message input, and send functionality.
+12) Added a Map screen displaying property locations using react-native-maps, with updated tab navigation.
+13) Added an Add Listing feature with a form for creating new listings.
 
 Goals / Next Steps:
 1) Integrate actual API services for listings and user authentication.

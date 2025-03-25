@@ -4,19 +4,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import ListingDetailScreen from './src/screens/ListingDetailScreen';
+import AddListingScreen from './src/screens/AddListingScreen';
 import { AuthProvider, AuthContext } from './src/context/AuthContext';
 import MainTabNavigator from './src/navigation/MainTabNavigator';
 
 export type RootStackParamList = {
   MainTabs: undefined;
   ListingDetail: { listingId: string } | undefined;
+  AddListing: undefined;
   Login: undefined;
   Register: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-// The AppStack now nests the bottom tabs plus a Listing Detail screen.
 const AppStack = () => {
   return (
     <Stack.Navigator>
@@ -29,6 +30,11 @@ const AppStack = () => {
         name="ListingDetail" 
         component={ListingDetailScreen} 
         options={{ title: 'Listing Details' }} 
+      />
+      <Stack.Screen 
+        name="AddListing" 
+        component={AddListingScreen} 
+        options={{ title: 'Add New Listing' }} 
       />
     </Stack.Navigator>
   );

@@ -1,50 +1,71 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, Button } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { MainTabParamList } from '../navigation/MainTabNavigator';
 import ListingCard from '../components/ListingCard';
+import { fetchListings, Listing } from '../services/api';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
 
-type Listing = {
-  id: string;
-  title: string;
-  description: string;
-};
-
-const dummyListings: Listing[] = [
-  { id: '1', title: 'PG in Mukherjee Nagar', description: 'Affordable and safe housing near campus.' },
-  { id: '2', title: 'Shared Flat in Kota', description: 'Ideal for students, spacious and well-connected.' },
-  { id: '3', title: 'Hostel in Delhi', description: 'Secure hostel with all amenities.' },
-];
-
 const HomeScreen = ({ navigation }: Props): React.ReactElement => {
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadListings = async () => {
+      try {
+        const data = await fetchListings();
+        setListings(data);
+      } catch (error) {
+        console.error('Error fetching listings:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadListings();
+  }, []);
+
   const renderItem = ({ item }: { item: Listing }) => (
     <ListingCard 
       listingId={item.id}
       title={item.title}
       description={item.description}
-      // Since ListingDetail is in the parent stack navigator,
-      // use getParent() to navigate to it.
       onPress={() => navigation.getParent()?.navigate('ListingDetail', { listingId: item.id })}
     />
   );
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#27ae60" />
+        <Text>Loading Listings...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Listings</Text>
       <FlatList 
-        data={dummyListings}
+        data={listings}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={styles.list}
       />
+      <View style={styles.addButtonContainer}>
+        <Button 
+          title="Add Listing" 
+          onPress={() => navigation.getParent()?.navigate('AddListing')} 
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -52,6 +73,9 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   list: { paddingBottom: 20 },
+  addButtonContainer: {
+    padding: 20,
+  },
 });
 
 export default HomeScreen;
