@@ -1,0 +1,16 @@
+Version - 1
+-----------
+Achievements:
+1) Established a working React Native environment with placeholder screens.
+2) Integrated React Navigation with Home, Listing Detail, Login, Register, and Profile screens.
+3) Implemented basic Login and Registration forms with state management and simple validation.
+4) Added dummy listing cards to the Home Screen using a FlatList and a custom ListingCard component.
+5) Enhanced the Listing Detail screen with detailed dummy data (images, description, amenities).
+6) Updated the Profile screen with dummy user information and a logout button.
+7) Integrated basic authentication state management using React Context to conditionally render screens.
+
+Goals / Next Steps:
+1) Integrate actual API services for listings and user authentication.
+2) Expand UI details and interactions on each screen based on user feedback.
+3) Implement robust state management for handling detailed user and listing data.
+4) Further refine the UI/UX across the app.
