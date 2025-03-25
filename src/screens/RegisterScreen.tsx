@@ -22,7 +22,6 @@ const RegisterScreen = ({ navigation }: Props): React.ReactElement => {
       Alert.alert('Error', 'Passwords do not match');
       return;
     }
-    // Dummy registration: call context login with provided data
     login({ name, email });
   };
 

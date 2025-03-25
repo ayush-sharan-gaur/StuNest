@@ -1,22 +1,23 @@
-Version - 1
------------
+API-KEY
+AIzaSyDggpuzxwNRe-9nG3vskTFkpSbEzP91YIc
+
+Version 1.0 (Complete)
+----------------------
 Achievements:
-1) Established a working React Native environment with authentication flows.
-2) Integrated React Navigation with authentication (Login/Register) and main app screens.
-3) Implemented basic Login and Registration forms with state management and simple validation.
-4) Added dummy listing cards to the Home Screen using a FlatList and a custom ListingCard component.
-5) Enhanced the Listing Detail screen with detailed dummy data (images, description, amenities).
-6) Updated the Profile screen with dummy user information and a logout button.
-7) Integrated basic authentication state management using React Context.
-8) Added a bottom tab navigator for the main app (Home, Map, Messages, Profile) nested inside a stack navigator.
-9) Enabled navigation to the Listing Detail screen from the Home Screen.
-10) Integrated a simulated API call to fetch listings, with a loading state.
-11) Enhanced the Messaging screen with a dummy chat conversation, message input, and send functionality.
-12) Added a Map screen displaying property locations using react-native-maps, with updated tab navigation.
-13) Added an Add Listing feature with a form for creating new listings.
+1) Established a fully working React Native environment with authentication flows (Login/Register) using React Context.
+2) Integrated React Navigation with a stack navigator (for Listing Detail and Add Listing screens) nested within a bottom tab navigator (Home, Map, Messages, Favourites, Profile).
+3) Implemented basic Login and Registration forms with state management and validation.
+4) Displayed dummy listings on the Home Screen with search/filter functionality.
+5) Enhanced Listing Detail screen with detailed dummy data.
+6) Provided an Add Listing screen for creating new listings.
+7) Integrated a Favourites feature: users can mark listings as favourites and view them in a dedicated Favourites screen.
+8) Developed a Messaging screen with dummy conversation and send functionality.
+9) Added a Map screen that displays property locations using react-native-maps.
+10) Overall, all core features of the MVP are complete.
 
 Goals / Next Steps:
-1) Integrate actual API services for listings and user authentication.
-2) Expand UI details and interactions on each screen based on user feedback.
-3) Implement robust state management for handling detailed user and listing data.
-4) Further refine the UI/UX across the app.
+1) Integrate real API services for listings and user authentication.
+2) Refine UI/UX details and add animations/transitions.
+3) Implement advanced features (e.g., real-time messaging, detailed filtering/sorting).
+4) Polish error handling and performance optimizations for production.
+

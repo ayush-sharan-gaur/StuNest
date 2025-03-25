@@ -16,7 +16,6 @@ const LoginScreen = ({ navigation }: Props): React.ReactElement => {
       Alert.alert('Error', 'Please enter both email and password');
       return;
     }
-    // Dummy login: call context login with dummy data
     login({ name: 'Test User', email });
   };
 

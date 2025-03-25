@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 
 const MapScreen = (): React.ReactElement => {
-  // Dummy marker data for listings
   const markers = [
     { id: '1', title: 'PG in Mukherjee Nagar', latitude: 28.70, longitude: 77.20 },
     { id: '2', title: 'Shared Flat in Kota', latitude: 25.18, longitude: 75.83 },
@@ -14,6 +13,7 @@ const MapScreen = (): React.ReactElement => {
     <View style={styles.container}>
       <MapView
         style={styles.map}
+        provider={PROVIDER_DEFAULT}
         initialRegion={{
           latitude: 28.70,
           longitude: 77.20,
@@ -21,7 +21,7 @@ const MapScreen = (): React.ReactElement => {
           longitudeDelta: 0.5,
         }}
       >
-        {markers.map((marker) => (
+        {markers.map(marker => (
           <Marker
             key={marker.id}
             coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}

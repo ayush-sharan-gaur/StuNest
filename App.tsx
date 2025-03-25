@@ -6,6 +6,7 @@ import RegisterScreen from './src/screens/RegisterScreen';
 import ListingDetailScreen from './src/screens/ListingDetailScreen';
 import AddListingScreen from './src/screens/AddListingScreen';
 import { AuthProvider, AuthContext } from './src/context/AuthContext';
+import { FavouritesProvider } from './src/context/FavouritesContext';
 import MainTabNavigator from './src/navigation/MainTabNavigator';
 
 export type RootStackParamList = {
@@ -61,7 +62,9 @@ const AppNavigator = () => {
 const App = (): React.ReactElement => {
   return (
     <AuthProvider>
-      <AppNavigator />
+      <FavouritesProvider>
+        <AppNavigator />
+      </FavouritesProvider>
     </AuthProvider>
   );
 };

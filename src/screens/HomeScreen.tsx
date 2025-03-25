@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator, Button } from 'react-native';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  FlatList, 
+  ActivityIndicator, 
+  TextInput, 
+  Button 
+} from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { MainTabParamList } from '../navigation/MainTabNavigator';
 import ListingCard from '../components/ListingCard';
@@ -10,6 +18,7 @@ type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
 const HomeScreen = ({ navigation }: Props): React.ReactElement => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
     const loadListings = async () => {
@@ -25,6 +34,11 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
 
     loadListings();
   }, []);
+
+  const filteredListings = listings.filter(item =>
+    item.title.toLowerCase().includes(searchText.toLowerCase()) ||
+    item.description.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   const renderItem = ({ item }: { item: Listing }) => (
     <ListingCard 
@@ -47,8 +61,14 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Listings</Text>
+      <TextInput 
+        style={styles.searchInput}
+        placeholder="Search listings..."
+        value={searchText}
+        onChangeText={setSearchText}
+      />
       <FlatList 
-        data={listings}
+        data={filteredListings}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={styles.list}
@@ -71,6 +91,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 20,
+  },
+  searchInput: {
+    marginHorizontal: 20,
+    marginBottom: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
   },
   list: { paddingBottom: 20 },
   addButtonContainer: {

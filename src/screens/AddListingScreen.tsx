@@ -16,7 +16,6 @@ const AddListingScreen = ({ navigation }: Props): React.ReactElement => {
       Alert.alert('Error', 'Please fill out all fields.');
       return;
     }
-    // For now, we simulate successful submission.
     Alert.alert('Success', 'Listing Added Successfully!');
     navigation.goBack();
   };

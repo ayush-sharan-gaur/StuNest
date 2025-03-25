@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { FavouritesContext } from '../context/FavouritesContext';
 
 type ListingCardProps = {
   listingId: string;
@@ -9,11 +10,25 @@ type ListingCardProps = {
 };
 
 const ListingCard = ({ listingId, title, description, onPress }: ListingCardProps): React.ReactElement => {
+  const { favourites, addFavourite, removeFavourite } = useContext(FavouritesContext);
+  const isFavourite = favourites.includes(listingId);
+
+  const toggleFavourite = () => {
+    if (isFavourite) {
+      removeFavourite(listingId);
+    } else {
+      addFavourite(listingId);
+    }
+  };
+
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={styles.info}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.description}>{description}</Text>
+      </View>
+      <View style={styles.favouriteButton}>
+        <Button title={isFavourite ? "Unfavourite" : "Favourite"} onPress={toggleFavourite} />
       </View>
     </TouchableOpacity>
   );
@@ -31,6 +46,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   info: {},
   title: {
@@ -41,6 +59,9 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: '#555',
+  },
+  favouriteButton: {
+    marginLeft: 10,
   },
 });
 

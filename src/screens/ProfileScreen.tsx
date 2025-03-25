@@ -1,10 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, Button } from 'react-native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { MainTabParamList } from '../navigation/MainTabNavigator';
 import { AuthContext } from '../context/AuthContext';
-
-type Props = BottomTabScreenProps<MainTabParamList, 'Profile'>;
 
 const dummyUser = {
   name: 'John Doe',
@@ -12,7 +8,7 @@ const dummyUser = {
   image: 'https://via.placeholder.com/150',
 };
 
-const ProfileScreen = ({ navigation }: Props): React.ReactElement => {
+const ProfileScreen = (): React.ReactElement => {
   const { user, logout } = useContext(AuthContext);
   return (
     <View style={styles.container}>
