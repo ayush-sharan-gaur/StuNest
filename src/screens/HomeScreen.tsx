@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { MainTabParamList } from '../navigation/MainTabNavigator';
 import ListingCard from '../components/ListingCard';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
 
 type Listing = {
   id: string;
@@ -24,7 +24,9 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
       listingId={item.id}
       title={item.title}
       description={item.description}
-      onPress={() => navigation.navigate('ListingDetail', { listingId: item.id })}
+      // Since ListingDetail is in the parent stack navigator,
+      // use getParent() to navigate to it.
+      onPress={() => navigation.getParent()?.navigate('ListingDetail', { listingId: item.id })}
     />
   );
 
@@ -37,33 +39,19 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
         renderItem={renderItem}
         contentContainerStyle={styles.list}
       />
-      <View style={styles.buttonsContainer}>
-        <Button title="Login" onPress={() => navigation.navigate('Login')} />
-        <Button title="Register" onPress={() => navigation.navigate('Register')} />
-        <Button title="Profile" onPress={() => navigation.navigate('Profile')} />
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1 },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 20,
   },
-  list: {
-    paddingBottom: 20,
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: 10,
-  },
+  list: { paddingBottom: 20 },
 });
 
 export default HomeScreen;

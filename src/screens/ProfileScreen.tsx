@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, Button } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { MainTabParamList } from '../navigation/MainTabNavigator';
 import { AuthContext } from '../context/AuthContext';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
+type Props = BottomTabScreenProps<MainTabParamList, 'Profile'>;
 
 const dummyUser = {
   name: 'John Doe',

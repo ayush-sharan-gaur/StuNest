@@ -13,11 +13,10 @@ const dummyDetails = {
   address: 'Mukherjee Nagar, Delhi',
   price: '₹3,500/month',
   amenities: ['Wi-Fi', 'Laundry', 'Air Conditioning', '24/7 Security'],
-  image: 'https://via.placeholder.com/300', // Placeholder image URL
+  image: 'https://via.placeholder.com/300',
 };
 
 const ListingDetailScreen = ({ route }: Props): React.ReactElement => {
-  // For now, we're using dummy details regardless of listingId.
   const { listingId } = route.params || { listingId: dummyDetails.id };
 
   return (
