@@ -16,13 +16,14 @@ type Message = {
   id: string;
   text: string;
   sender: 'user' | 'system';
+  timestamp: Date;
 };
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Messages'>;
 
 const initialMessages: Message[] = [
-  { id: '1', text: 'Welcome to StuNest messaging!', sender: 'system' },
-  { id: '2', text: 'How can we help you today?', sender: 'system' },
+  { id: '1', text: 'Welcome to StuNest messaging!', sender: 'system', timestamp: new Date() },
+  { id: '2', text: 'How can we help you today?', sender: 'system', timestamp: new Date() },
 ];
 
 const MessagesScreen = ({ navigation }: Props): React.ReactElement => {
@@ -35,6 +36,7 @@ const MessagesScreen = ({ navigation }: Props): React.ReactElement => {
       id: (messages.length + 1).toString(),
       text: inputText,
       sender: 'user',
+      timestamp: new Date(),
     };
     setMessages([...messages, newMessage]);
     setInputText('');
@@ -48,6 +50,7 @@ const MessagesScreen = ({ navigation }: Props): React.ReactElement => {
       ]}
     >
       <Text style={styles.messageText}>{item.text}</Text>
+      <Text style={styles.timestamp}>{item.timestamp.toLocaleTimeString()}</Text>
     </View>
   );
 
@@ -93,6 +96,12 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   messageText: { fontSize: 16 },
+  timestamp: {
+    fontSize: 12,
+    color: '#555',
+    textAlign: 'right',
+    marginTop: 4,
+  },
   inputContainer: {
     flexDirection: 'row',
     padding: 10,

@@ -6,7 +6,8 @@ import {
   FlatList, 
   ActivityIndicator, 
   TextInput, 
-  Button 
+  Button,
+  TouchableOpacity
 } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { MainTabParamList } from '../navigation/MainTabNavigator';
@@ -19,6 +20,7 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchText, setSearchText] = useState<string>('');
+  const [sortAscending, setSortAscending] = useState<boolean>(true);
 
   useEffect(() => {
     const loadListings = async () => {
@@ -40,11 +42,19 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
     item.description.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  const sortedListings = filteredListings.sort((a, b) => {
+    return sortAscending ? a.price - b.price : b.price - a.price;
+  });
+
+  const toggleSort = () => {
+    setSortAscending(!sortAscending);
+  };
+
   const renderItem = ({ item }: { item: Listing }) => (
     <ListingCard 
       listingId={item.id}
       title={item.title}
-      description={item.description}
+      description={`${item.description} | ₹${item.price}/month`}
       onPress={() => navigation.getParent()?.navigate('ListingDetail', { listingId: item.id })}
     />
   );
@@ -67,8 +77,13 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
         value={searchText}
         onChangeText={setSearchText}
       />
+      <TouchableOpacity style={styles.sortButton} onPress={toggleSort}>
+        <Text style={styles.sortButtonText}>
+          Sort by Price: {sortAscending ? 'Ascending' : 'Descending'}
+        </Text>
+      </TouchableOpacity>
       <FlatList 
-        data={filteredListings}
+        data={sortedListings}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={styles.list}
@@ -99,6 +114,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
+  },
+  sortButton: {
+    marginHorizontal: 20,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: '#27ae60',
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  sortButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
   list: { paddingBottom: 20 },
   addButtonContainer: {

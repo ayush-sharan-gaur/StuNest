@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, Button, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 
@@ -19,6 +19,10 @@ const dummyDetails = {
 const ListingDetailScreen = ({ route }: Props): React.ReactElement => {
   const { listingId } = route.params || { listingId: dummyDetails.id };
 
+  const handleBooking = () => {
+    Alert.alert('Booking', 'Booking functionality will be implemented in future versions.');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>{dummyDetails.title}</Text>
@@ -32,6 +36,9 @@ const ListingDetailScreen = ({ route }: Props): React.ReactElement => {
           - {amenity}
         </Text>
       ))}
+      <View style={styles.bookingButton}>
+        <Button title="Book Now" onPress={handleBooking} />
+      </View>
     </ScrollView>
   );
 };
@@ -76,6 +83,10 @@ const styles = StyleSheet.create({
   amenity: {
     fontSize: 16,
     color: '#333',
+  },
+  bookingButton: {
+    marginTop: 20,
+    width: '80%',
   },
 });
 

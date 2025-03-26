@@ -15,9 +15,18 @@ Achievements:
 9) Added a Map screen that displays property locations using react-native-maps.
 10) Overall, all core features of the MVP are complete.
 
+Version 2.0 (Enhanced)
+----------------------
+Achievements:
+1) Integrated real API stubs for listings with price data.
+2) Added advanced search/filter and sorting functionality on the Home Screen.
+3) Enhanced the Listing Detail screen with a booking button (placeholder for future booking integration).
+4) Improved the Messaging screen with timestamps for messages.
+5) Updated the Profile screen to include inline edit functionality.
+6) Retained all core features from Version 1 (authentication, navigation, favourites, map, messaging, add listing).
+
 Goals / Next Steps:
 1) Integrate real API services for listings and user authentication.
-2) Refine UI/UX details and add animations/transitions.
-3) Implement advanced features (e.g., real-time messaging, detailed filtering/sorting).
-4) Polish error handling and performance optimizations for production.
-
+2) Further refine UI/UX with animations, transitions, and improved error handling.
+3) Implement real-time messaging, detailed filtering/sorting, and payment integration.
+4) Expand property owner/manager features and add analytics.
