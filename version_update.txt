@@ -25,8 +25,13 @@ Achievements:
 5) Updated the Profile screen to include inline edit functionality.
 6) Retained all core features from Version 1 (authentication, navigation, favourites, map, messaging, add listing).
 
-Goals / Next Steps:
-1) Integrate real API services for listings and user authentication.
-2) Further refine UI/UX with animations, transitions, and improved error handling.
-3) Implement real-time messaging, detailed filtering/sorting, and payment integration.
-4) Expand property owner/manager features and add analytics.
+Version 3.0 (EventEmitter & ImagePicker Fixes)
+---------------------------------------------
+Achievements:
+1) Migrated from expo-image-picker to react-native-image-picker, updating image selection logic to check for cancellation and use response.assets[0].uri.
+2) Replaced the placeholder API key in the Firebase configuration with the correct key from Firebase Console.
+3) Corrected the storage bucket format from "stunest-5919.firebasestorage.app" to the proper "stunest-5919.appspot.com".
+4) Updated Android Gradle configuration by adding the Google Services plugin dependency in the project-level build.gradle and applying the plugin at the bottom of the app-level build.gradle.
+5) Removed unsupported analytics (getAnalytics) from the Firebase configuration to prevent native warnings.
+6) Resolved the auth/api-key-not-valid error so that Firebase Authentication now works correctly for login and registration.
+7) Retained all enhanced functionality from previous versions (advanced search/filter, booking stubs, favourites, etc.).

@@ -27,12 +27,7 @@ const FavouritesScreen: React.FC = () => {
   const favouriteListings = allListings.filter(listing => favourites.includes(listing.id));
 
   const renderItem = ({ item }: { item: Listing }) => (
-    <ListingCard 
-      listingId={item.id}
-      title={item.title}
-      description={item.description}
-      onPress={() => { /* Optional: Navigate to ListingDetail if desired */ }}
-    />
+    <ListingCard listingId={item.id} title={item.title} description={item.description} onPress={() => {}} />
   );
 
   if (loading) {
@@ -50,12 +45,7 @@ const FavouritesScreen: React.FC = () => {
       {favouriteListings.length === 0 ? (
         <Text style={styles.noFavourites}>No favourites yet.</Text>
       ) : (
-        <FlatList 
-          data={favouriteListings}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          contentContainerStyle={styles.list}
-        />
+        <FlatList data={favouriteListings} keyExtractor={(item) => item.id} renderItem={renderItem} contentContainerStyle={styles.list} />
       )}
     </View>
   );

@@ -22,11 +22,7 @@ const MapScreen = (): React.ReactElement => {
         }}
       >
         {markers.map(marker => (
-          <Marker
-            key={marker.id}
-            coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-            title={marker.title}
-          />
+          <Marker key={marker.id} coordinate={{ latitude: marker.latitude, longitude: marker.longitude }} title={marker.title} />
         ))}
       </MapView>
     </View>
@@ -34,14 +30,8 @@ const MapScreen = (): React.ReactElement => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
+  container: { ...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', alignItems: 'center' },
+  map: { ...StyleSheet.absoluteFillObject },
 });
 
 export default MapScreen;

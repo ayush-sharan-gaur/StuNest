@@ -11,9 +11,9 @@ const RegisterScreen = ({ navigation }: Props): React.ReactElement => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { login } = useContext(AuthContext);
+  const { register } = useContext(AuthContext);
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!name || !email || !password || !confirmPassword) {
       Alert.alert('Error', 'Please fill out all fields');
       return;
@@ -22,7 +22,11 @@ const RegisterScreen = ({ navigation }: Props): React.ReactElement => {
       Alert.alert('Error', 'Passwords do not match');
       return;
     }
-    login({ name, email });
+    try {
+      await register(email, password);
+    } catch (error) {
+      Alert.alert('Registration Error', 'Failed to register. Please try again.');
+    }
   };
 
   return (

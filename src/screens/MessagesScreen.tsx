@@ -55,23 +55,10 @@ const MessagesScreen = ({ navigation }: Props): React.ReactElement => {
   );
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      <FlatList
-        data={messages}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        contentContainerStyle={styles.messagesList}
-      />
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <FlatList data={messages} keyExtractor={(item) => item.id} renderItem={renderItem} contentContainerStyle={styles.messagesList} />
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Type your message..."
-          value={inputText}
-          onChangeText={setInputText}
-        />
+        <TextInput style={styles.input} placeholder="Type your message..." value={inputText} onChangeText={setInputText} />
         <Button title="Send" onPress={handleSend} />
       </View>
     </KeyboardAvoidingView>
@@ -81,43 +68,13 @@ const MessagesScreen = ({ navigation }: Props): React.ReactElement => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
   messagesList: { padding: 10 },
-  messageContainer: {
-    padding: 10,
-    borderRadius: 8,
-    marginVertical: 5,
-    maxWidth: '80%',
-  },
-  userMessage: {
-    backgroundColor: '#d1e7dd',
-    alignSelf: 'flex-end',
-  },
-  systemMessage: {
-    backgroundColor: '#f8d7da',
-    alignSelf: 'flex-start',
-  },
+  messageContainer: { padding: 10, borderRadius: 8, marginVertical: 5, maxWidth: '80%' },
+  userMessage: { backgroundColor: '#d1e7dd', alignSelf: 'flex-end' },
+  systemMessage: { backgroundColor: '#f8d7da', alignSelf: 'flex-start' },
   messageText: { fontSize: 16 },
-  timestamp: {
-    fontSize: 12,
-    color: '#555',
-    textAlign: 'right',
-    marginTop: 4,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#ccc',
-    alignItems: 'center',
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 20,
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    marginRight: 10,
-  },
+  timestamp: { fontSize: 12, color: '#555', textAlign: 'right', marginTop: 4 },
+  inputContainer: { flexDirection: 'row', padding: 10, borderTopWidth: 1, borderTopColor: '#ccc', alignItems: 'center' },
+  input: { flex: 1, borderWidth: 1, borderColor: '#ccc', borderRadius: 20, paddingHorizontal: 15, paddingVertical: 8, marginRight: 10 },
 });
 
 export default MessagesScreen;

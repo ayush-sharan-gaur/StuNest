@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "733444090359",
+    "project_id": "stunest-5919",
+    "storage_bucket": "stunest-5919.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733444090359:android:34a00e30b6c08c82fd66f2",
+        "android_client_info": {
+          "package_name": "com.stunest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7Wotc6IlFyXKM6K8E68_Ntp3JnQ4BvSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

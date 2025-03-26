@@ -11,12 +11,16 @@ const LoginScreen = ({ navigation }: Props): React.ReactElement => {
   const [password, setPassword] = useState('');
   const { login } = useContext(AuthContext);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please enter both email and password');
       return;
     }
-    login({ name: 'Test User', email });
+    try {
+      await login(email, password);
+    } catch (error) {
+      Alert.alert('Login Error', 'Failed to login. Please check your credentials.');
+    }
   };
 
   return (

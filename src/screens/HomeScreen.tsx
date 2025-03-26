@@ -42,9 +42,7 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
     item.description.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const sortedListings = filteredListings.sort((a, b) => {
-    return sortAscending ? a.price - b.price : b.price - a.price;
-  });
+  const sortedListings = filteredListings.sort((a, b) => sortAscending ? a.price - b.price : b.price - a.price);
 
   const toggleSort = () => {
     setSortAscending(!sortAscending);
@@ -78,9 +76,7 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
         onChangeText={setSearchText}
       />
       <TouchableOpacity style={styles.sortButton} onPress={toggleSort}>
-        <Text style={styles.sortButtonText}>
-          Sort by Price: {sortAscending ? 'Ascending' : 'Descending'}
-        </Text>
+        <Text style={styles.sortButtonText}>Sort by Price: {sortAscending ? 'Ascending' : 'Descending'}</Text>
       </TouchableOpacity>
       <FlatList 
         data={sortedListings}
@@ -89,10 +85,7 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
         contentContainerStyle={styles.list}
       />
       <View style={styles.addButtonContainer}>
-        <Button 
-          title="Add Listing" 
-          onPress={() => navigation.getParent()?.navigate('AddListing')} 
-        />
+        <Button title="Add Listing" onPress={() => navigation.getParent()?.navigate('AddListing')} />
       </View>
     </View>
   );
@@ -101,36 +94,12 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  header: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 20,
-  },
-  searchInput: {
-    marginHorizontal: 20,
-    marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-  },
-  sortButton: {
-    marginHorizontal: 20,
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: '#27ae60',
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  sortButtonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
+  header: { fontSize: 28, fontWeight: 'bold', textAlign: 'center', marginVertical: 20 },
+  searchInput: { marginHorizontal: 20, marginBottom: 10, padding: 10, borderWidth: 1, borderColor: '#ccc', borderRadius: 8 },
+  sortButton: { marginHorizontal: 20, marginBottom: 10, padding: 10, backgroundColor: '#27ae60', borderRadius: 8, alignItems: 'center' },
+  sortButtonText: { color: '#fff', fontSize: 16 },
   list: { paddingBottom: 20 },
-  addButtonContainer: {
-    padding: 20,
-  },
+  addButtonContainer: { padding: 20 },
 });
 
 export default HomeScreen;

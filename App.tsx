@@ -22,21 +22,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const AppStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen 
-        name="MainTabs" 
-        component={MainTabNavigator} 
-        options={{ headerShown: false }} 
-      />
-      <Stack.Screen 
-        name="ListingDetail" 
-        component={ListingDetailScreen} 
-        options={{ title: 'Listing Details' }} 
-      />
-      <Stack.Screen 
-        name="AddListing" 
-        component={AddListingScreen} 
-        options={{ title: 'Add New Listing' }} 
-      />
+      <Stack.Screen name="MainTabs" component={MainTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="ListingDetail" component={ListingDetailScreen} options={{ title: 'Listing Details' }} />
+      <Stack.Screen name="AddListing" component={AddListingScreen} options={{ title: 'Add New Listing' }} />
     </Stack.Navigator>
   );
 };

@@ -12,9 +12,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        // Android Gradle Plugin (adjust if needed)
+        classpath("com.android.tools.build:gradle:7.4.2")
+
+        // React Native Gradle Plugin
         classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+
+        // Kotlin Gradle Plugin
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+
+        // GOOGLE SERVICES PLUGIN
+        classpath("com.google.gms:google-services:4.3.15")
     }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, Button, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
+import { bookListing } from '../services/api';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ListingDetail'>;
 
@@ -19,8 +20,13 @@ const dummyDetails = {
 const ListingDetailScreen = ({ route }: Props): React.ReactElement => {
   const { listingId } = route.params || { listingId: dummyDetails.id };
 
-  const handleBooking = () => {
-    Alert.alert('Booking', 'Booking functionality will be implemented in future versions.');
+  const handleBooking = async () => {
+    const success = await bookListing(listingId, "TestUser");
+    if (success) {
+      Alert.alert('Booking', 'Booking successful!');
+    } else {
+      Alert.alert('Booking', 'Booking failed. Please try again.');
+    }
   };
 
   return (
@@ -44,50 +50,15 @@ const ListingDetailScreen = ({ route }: Props): React.ReactElement => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  image: {
-    width: '100%',
-    height: 200,
-    marginBottom: 15,
-    borderRadius: 8,
-  },
-  price: {
-    fontSize: 22,
-    color: '#27ae60',
-    marginBottom: 10,
-  },
-  address: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 10,
-  },
-  description: {
-    fontSize: 16,
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 10,
-  },
-  amenity: {
-    fontSize: 16,
-    color: '#333',
-  },
-  bookingButton: {
-    marginTop: 20,
-    width: '80%',
-  },
+  container: { padding: 20, alignItems: 'center' },
+  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 15, textAlign: 'center' },
+  image: { width: '100%', height: 200, marginBottom: 15, borderRadius: 8 },
+  price: { fontSize: 22, color: '#27ae60', marginBottom: 10 },
+  address: { fontSize: 16, color: '#555', marginBottom: 10 },
+  description: { fontSize: 16, marginBottom: 15, textAlign: 'center' },
+  sectionTitle: { fontSize: 20, fontWeight: '600', marginBottom: 10 },
+  amenity: { fontSize: 16, color: '#333' },
+  bookingButton: { marginTop: 20, width: '80%' },
 });
 
 export default ListingDetailScreen;
