@@ -1,62 +1,36 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { FavouritesContext } from '../context/FavouritesContext';
-import ListingCard from '../components/ListingCard';
-import { fetchListings, Listing } from '../services/api';
+import { AuthContext } from '../context/AuthContext';
 
-const FavouritesScreen: React.FC = () => {
+const FavouritesScreen = (): React.ReactElement => {
   const { favourites } = useContext(FavouritesContext);
-  const [allListings, setAllListings] = useState<Listing[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    const loadListings = async () => {
-      try {
-        const data = await fetchListings();
-        setAllListings(data);
-      } catch (error) {
-        console.error('Error fetching listings:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadListings();
-  }, []);
-
-  const favouriteListings = allListings.filter(listing => favourites.includes(listing.id));
-
-  const renderItem = ({ item }: { item: Listing }) => (
-    <ListingCard listingId={item.id} title={item.title} description={item.description} onPress={() => {}} />
-  );
-
-  if (loading) {
+  if (!user) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#27ae60" />
-        <Text>Loading Favourites...</Text>
+      <View style={styles.container}>
+        <Text style={styles.infoText}>Please log in to view your wishlist.</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Favourite Listings</Text>
-      {favouriteListings.length === 0 ? (
-        <Text style={styles.noFavourites}>No favourites yet.</Text>
+      <Text style={styles.title}>Wishlist</Text>
+      {favourites.length === 0 ? (
+        <Text style={styles.infoText}>No favourite listings yet.</Text>
       ) : (
-        <FlatList data={favouriteListings} keyExtractor={(item) => item.id} renderItem={renderItem} contentContainerStyle={styles.list} />
+        <Text>Favourite listings go here.</Text>
       )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  header: { fontSize: 28, fontWeight: 'bold', textAlign: 'center', marginVertical: 20 },
-  noFavourites: { textAlign: 'center', marginTop: 20, fontSize: 16 },
-  list: { paddingBottom: 20 },
+  container: { flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fafafa' },
+  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 20 },
+  infoText: { fontSize: 18, textAlign: 'center', color: '#555' },
 });
 
 export default FavouritesScreen;

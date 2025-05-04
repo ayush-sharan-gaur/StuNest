@@ -35,3 +35,13 @@ Achievements:
 5) Removed unsupported analytics (getAnalytics) from the Firebase configuration to prevent native warnings.
 6) Resolved the auth/api-key-not-valid error so that Firebase Authentication now works correctly for login and registration.
 7) Retained all enhanced functionality from previous versions (advanced search/filter, booking stubs, favourites, etc.).
+
+Version 4.0 (Airbnb-Inspired UI & Guest Mode Overhaul)
+---------------------------------------------
+Achievements:
+1) Complete UI overhaul inspired by Airbnb’s design language.
+2) Redesigned Welcome Screen: On launch, users see a stylish login screen with a prominent cross (×) at the top left that lets users skip login and enter guest mode.
+3) Updated Home Screen: Features a top search bar, filter options directly underneath, followed by a list of listings presented in a clean, card-style layout.
+4) Revamped bottom tab navigation: Four options – Explore, Wishlist, Messages, and Login – ensuring that Wishlist and Messages are locked for guest users.
+5) Implemented conditional rendering in the Wishlist and Messages screens to prompt guest users to log in.
+6) Retained all core functionalities from previous versions (authentication, listing details, booking stubs, etc.) while focusing on a polished, guest-friendly experience.

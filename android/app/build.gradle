@@ -9,6 +9,7 @@ react {
 
 def enableProguardInReleaseBuilds = false
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
+def hermesEnabled = false  // Adjust if you plan to enable Hermes
 
 android {
     ndkVersion rootProject.ext.ndkVersion
@@ -51,16 +52,17 @@ android {
 dependencies {
     // React Native dependency (managed by RN Gradle plugin)
     implementation("com.facebook.react:react-android")
-
+    
     // For Hermes or JSC
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
     }
-
-    // FIREBASE AUTH DEPENDENCY (Important!)
-    implementation "com.google.firebase:firebase-auth:22.1.1"
+    
+    // Firebase dependencies using Firebase Android BoM
+    implementation platform('com.google.firebase:firebase-bom:33.11.0')
+    implementation 'com.google.firebase:firebase-auth'
 }
 
 // APPLY GOOGLE SERVICES PLUGIN LAST

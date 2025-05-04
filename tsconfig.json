@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "jsx": "react-native",
-    "types": ["react", "react-native"],
+    "types": ["react", "react-native", "jest"],
     "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

@@ -1,29 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
-import MapScreen from '../screens/MapScreen';
-import MessagesScreen from '../screens/MessagesScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import MessagesScreen from '../screens/MessagesScreen';
+import LoginScreen from '../screens/LoginScreen';
+import { AuthContext } from '../context/AuthContext';
+import type { RootStackParamList } from './types';
 
 export type MainTabParamList = {
-  Home: undefined;
-  Map: undefined;
+  Explore: undefined;
+  Wishlist: undefined;
   Messages: undefined;
-  Favourites: undefined;
-  Profile: undefined;
+  Login: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const MainTabNavigator = (): React.ReactElement => {
+  const { user } = useContext(AuthContext);
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Messages" component={MessagesScreen} />
-      <Tab.Screen name="Favourites" component={FavouritesScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: { backgroundColor: '#fff', paddingVertical: 5 },
+      }}>
+      <Tab.Screen name="Explore" component={HomeScreen} />
+      <Tab.Screen name="Wishlist" component={FavouritesScreen} />
+      <Tab.Screen
+        name="Messages"
+        component={MessagesScreen}
+        options={{ tabBarLabel: user ? 'Messages' : 'Locked' }}
+      />
+      <Tab.Screen name="Login" component={LoginScreen} />
     </Tab.Navigator>
   );
 };

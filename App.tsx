@@ -1,58 +1,35 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import WelcomeScreen from './src/screens/WelcomeScreen';
+import OTPVerificationScreen from './src/screens/OTPVerificationScreen';
+import MainTabNavigator from './src/navigation/MainTabNavigator';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
-import ListingDetailScreen from './src/screens/ListingDetailScreen';
-import AddListingScreen from './src/screens/AddListingScreen';
-import { AuthProvider, AuthContext } from './src/context/AuthContext';
-import { FavouritesProvider } from './src/context/FavouritesContext';
-import MainTabNavigator from './src/navigation/MainTabNavigator';
-
-export type RootStackParamList = {
-  MainTabs: undefined;
-  ListingDetail: { listingId: string } | undefined;
-  AddListing: undefined;
-  Login: undefined;
-  Register: undefined;
-};
+import { AuthProvider } from './src/context/AuthContext';
+import { PhoneAuthProvider } from './src/context/PhoneAuthContext';
+import type { RootStackParamList } from './src/navigation/types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const AppStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="MainTabs" component={MainTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="ListingDetail" component={ListingDetailScreen} options={{ title: 'Listing Details' }} />
-      <Stack.Screen name="AddListing" component={AddListingScreen} options={{ title: 'Add New Listing' }} />
+const AppNavigator = () => (
+  <NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="OTPVerification" component={OTPVerificationScreen} />
+      <Stack.Screen name="MainTabs" component={MainTabNavigator} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
-  );
-};
-
-const AuthStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }} />
-      <Stack.Screen name="Register" component={RegisterScreen} options={{ title: 'Register' }} />
-    </Stack.Navigator>
-  );
-};
-
-const AppNavigator = () => {
-  const { user } = useContext(AuthContext);
-  return (
-    <NavigationContainer>
-      {user ? <AppStack /> : <AuthStack />}
-    </NavigationContainer>
-  );
-};
+  </NavigationContainer>
+);
 
 const App = (): React.ReactElement => {
   return (
     <AuthProvider>
-      <FavouritesProvider>
+      <PhoneAuthProvider>
         <AppNavigator />
-      </FavouritesProvider>
+      </PhoneAuthProvider>
     </AuthProvider>
   );
 };

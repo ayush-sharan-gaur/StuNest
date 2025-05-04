@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  FlatList, 
-  ActivityIndicator, 
-  TextInput, 
-  Button,
-  TouchableOpacity
-} from 'react-native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { MainTabParamList } from '../navigation/MainTabNavigator';
-import ListingCard from '../components/ListingCard';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TextInput, FlatList, ActivityIndicator } from 'react-native';
 import { fetchListings, Listing } from '../services/api';
 
-type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
-
-const HomeScreen = ({ navigation }: Props): React.ReactElement => {
+const HomeScreen = (): React.ReactElement => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchText, setSearchText] = useState<string>('');
-  const [sortAscending, setSortAscending] = useState<boolean>(true);
 
   useEffect(() => {
     const loadListings = async () => {
@@ -28,7 +13,7 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
         const data = await fetchListings();
         setListings(data);
       } catch (error) {
-        console.error('Error fetching listings:', error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -38,29 +23,20 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
   }, []);
 
   const filteredListings = listings.filter(item =>
-    item.title.toLowerCase().includes(searchText.toLowerCase()) ||
-    item.description.toLowerCase().includes(searchText.toLowerCase())
+    item.title.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const sortedListings = filteredListings.sort((a, b) => sortAscending ? a.price - b.price : b.price - a.price);
-
-  const toggleSort = () => {
-    setSortAscending(!sortAscending);
-  };
-
   const renderItem = ({ item }: { item: Listing }) => (
-    <ListingCard 
-      listingId={item.id}
-      title={item.title}
-      description={`${item.description} | ₹${item.price}/month`}
-      onPress={() => navigation.getParent()?.navigate('ListingDetail', { listingId: item.id })}
-    />
+    <View style={styles.listingCard}>
+      <Text style={styles.listingTitle}>{item.title}</Text>
+      <Text style={styles.listingPrice}>₹{item.price}/month</Text>
+    </View>
   );
 
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#27ae60" />
+        <ActivityIndicator size="large" color="#FF5A5F" />
         <Text>Loading Listings...</Text>
       </View>
     );
@@ -68,38 +44,60 @@ const HomeScreen = ({ navigation }: Props): React.ReactElement => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Listings</Text>
-      <TextInput 
-        style={styles.searchInput}
+      <TextInput
+        style={styles.searchBar}
         placeholder="Search listings..."
         value={searchText}
         onChangeText={setSearchText}
       />
-      <TouchableOpacity style={styles.sortButton} onPress={toggleSort}>
-        <Text style={styles.sortButtonText}>Sort by Price: {sortAscending ? 'Ascending' : 'Descending'}</Text>
-      </TouchableOpacity>
-      <FlatList 
-        data={sortedListings}
+      <View style={styles.filterRow}>
+        <Text style={styles.filterText}>Filters:</Text>
+        {/* Add filter buttons as needed */}
+      </View>
+      <FlatList
+        data={filteredListings}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
-        contentContainerStyle={styles.list}
+        contentContainerStyle={styles.listContainer}
       />
-      <View style={styles.addButtonContainer}>
-        <Button title="Add Listing" onPress={() => navigation.getParent()?.navigate('AddListing')} />
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: '#fafafa', padding: 10 },
+  searchBar: { 
+    marginHorizontal: 10, 
+    padding: 12, 
+    borderWidth: 1, 
+    borderColor: '#ddd', 
+    borderRadius: 25, 
+    backgroundColor: '#fff', 
+    marginBottom: 10 
+  },
+  filterRow: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginHorizontal: 10, 
+    marginBottom: 10 
+  },
+  filterText: { fontSize: 16, fontWeight: '500' },
+  listContainer: { paddingBottom: 80 },
+  listingCard: { 
+    backgroundColor: '#fff', 
+    padding: 15, 
+    borderRadius: 10, 
+    marginVertical: 8, 
+    marginHorizontal: 10, 
+    elevation: 3, 
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 2 }, 
+    shadowOpacity: 0.1, 
+    shadowRadius: 4 
+  },
+  listingTitle: { fontSize: 18, fontWeight: '600' },
+  listingPrice: { fontSize: 16, color: '#FF5A5F', marginTop: 5 },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  header: { fontSize: 28, fontWeight: 'bold', textAlign: 'center', marginVertical: 20 },
-  searchInput: { marginHorizontal: 20, marginBottom: 10, padding: 10, borderWidth: 1, borderColor: '#ccc', borderRadius: 8 },
-  sortButton: { marginHorizontal: 20, marginBottom: 10, padding: 10, backgroundColor: '#27ae60', borderRadius: 8, alignItems: 'center' },
-  sortButtonText: { color: '#fff', fontSize: 16 },
-  list: { paddingBottom: 20 },
-  addButtonContainer: { padding: 20 },
 });
 
 export default HomeScreen;

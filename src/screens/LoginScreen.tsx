@@ -1,45 +1,44 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, Button, TextInput, Alert } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
+import type { RootStackParamList } from '../navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
-
-const LoginScreen = ({ navigation }: Props): React.ReactElement => {
+const LoginScreen = (): React.ReactElement => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useContext(AuthContext);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('Error', 'Please enter both email and password');
+      Alert.alert('Error', 'Please enter both email and password.');
       return;
     }
     try {
       await login(email, password);
-    } catch (error) {
-      Alert.alert('Login Error', 'Failed to login. Please check your credentials.');
+    } catch (error: any) {
+      Alert.alert('Login Error', error.message || 'Failed to log in. Please try again.');
     }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-      <TextInput 
+      <TextInput
         style={styles.input}
         placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
-      <TextInput 
+      <TextInput
         style={styles.input}
         placeholder="Password"
-        secureTextEntry
         value={password}
         onChangeText={setPassword}
+        secureTextEntry
       />
       <Button title="Login" onPress={handleLogin} />
       <View style={styles.registerContainer}>
@@ -51,27 +50,10 @@ const LoginScreen = ({ navigation }: Props): React.ReactElement => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 28,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 4,
-    padding: 10,
-    marginBottom: 15,
-  },
-  registerContainer: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
+  container: { flex: 1, padding: 20, justifyContent: 'center' },
+  title: { fontSize: 28, textAlign: 'center', marginBottom: 20 },
+  input: { borderWidth: 1, borderColor: '#ccc', borderRadius: 4, padding: 10, marginBottom: 15 },
+  registerContainer: { marginTop: 20, alignItems: 'center' },
 });
 
 export default LoginScreen;
